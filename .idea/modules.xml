@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/srping-boot-api-calculator.iml" filepath="$PROJECT_DIR$/.idea/srping-boot-api-calculator.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/review-lesson-java-kotlin.iml" filepath="$PROJECT_DIR$/.idea/review-lesson-java-kotlin.iml" />
+      <module fileurl="file://$PROJECT_DIR$/srping-boot-api-calculator/srping-boot-api-calculator.iml" filepath="$PROJECT_DIR$/srping-boot-api-calculator/srping-boot-api-calculator.iml" />
     </modules>
   </component>
 </project>
