@@ -79,13 +79,18 @@ internal fun section(text: String) {
 }
 
 /** The syntax template(s) of a section: `"val name: Type = value" to "explicit type"`. */
-internal fun syntax(vararg forms: Pair<String, String>) {
-    forms.forEachIndexed { index, (form, meaning) ->
-        val tag = if (index == 0) "syntax" else ""
+internal fun syntax(vararg forms: Pair<String, String>) = templates("syntax", forms)
+
+/** The cost of operations: `"list[i]" to "O(1)"`. Complexity is a core topic of coding interviews. */
+internal fun bigO(vararg costs: Pair<String, String>) = templates("big-O", costs)
+
+private fun templates(tag: String, rows: Array<out Pair<String, String>>) {
+    rows.forEachIndexed { index, (left, right) ->
+        val label = if (index == 0) tag else ""
         if (plain) {
-            out.println("  ${tag.padEnd(8)}${form.padEnd(SYNTAX_WIDTH)} $meaning".trimEnd())
+            out.println("  ${label.padEnd(8)}${left.padEnd(SYNTAX_WIDTH)} $right".trimEnd())
         } else {
-            out.println("  " + paint(MAGENTA, tag.padEnd(8)) + paint(BOLD_GREEN, form.padEnd(SYNTAX_WIDTH)) + " " + paint(GRAY, meaning))
+            out.println("  " + paint(MAGENTA, label.padEnd(8)) + paint(BOLD_GREEN, left.padEnd(SYNTAX_WIDTH)) + " " + paint(GRAY, right))
         }
     }
 }
@@ -110,6 +115,13 @@ internal fun wontCompile(code: String, why: String) {
     }
 }
 
+/** A multi-line text, such as pretty-printed JSON, printed as an indented block (each line behind a bar). */
+internal fun block(text: String) {
+    for (line in text.lines()) {
+        if (plain) out.println("  | $line") else out.println("  " + paint(GRAY, "│") + " " + paint(BOLD_CYAN, line))
+    }
+}
+
 /** A plain remark, for things that cannot be printed (an exception, a rule, a tip). */
 internal fun note(text: String) {
     if (plain) out.println("  >> $text")
@@ -117,7 +129,7 @@ internal fun note(text: String) {
 }
 
 private fun printRow(label: String, value: Any?, note: String) {
-    val type = value?.let { it::class.simpleName } ?: "null"
+    val type = typeName(value)
     if (plain) {
         val noteText = if (note.isEmpty()) "" else "# $note"
         out.println("  ${label.padEnd(LABEL_WIDTH)} = ${display(value).padEnd(VALUE_WIDTH)} ${type.padEnd(TYPE_WIDTH)} $noteText".trimEnd())
@@ -132,9 +144,24 @@ private fun printRow(label: String, value: Any?, note: String) {
     )
 }
 
+/** The run-time class name, with the builder classes of buildList / buildSet / buildMap shown as List / Set / Map. */
+private fun typeName(value: Any?): String = when (val name = value?.let { it::class.simpleName }) {
+    null -> "null"
+    "ListBuilder" -> "List"
+    "SetBuilder" -> "Set"
+    "MapBuilder" -> "Map"
+    else -> name
+}
+
 private fun display(value: Any?): String = when (value) {
     is Char -> "'$value'"
     is String -> "\"$value\""
+    is Array<*> -> value.contentDeepToString()       // arrays print as [1, 2, 3], also 2D ones
+    is IntArray -> value.contentToString()
+    is LongArray -> value.contentToString()
+    is DoubleArray -> value.contentToString()
+    is CharArray -> value.contentToString()
+    is BooleanArray -> value.contentToString()
     else -> value.toString()
 }
 
