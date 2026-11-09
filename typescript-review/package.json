@@ -1,0 +1,19 @@
+{
+  "name": "typescript-review",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "description": "TypeScript syntax review: arrays, loops, maps, types (interview prep)",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "start": "tsx src/0-primitive-types/numbers.ts",
+    "check": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "tsx": "^4.23.15",
+    "typescript": "5.9.3"
+  }
+}
