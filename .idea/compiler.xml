@@ -8,11 +8,13 @@
         <outputRelativeToContentRoot value="true" />
         <module name="srping-boot-api-calculator" />
         <module name="kotlin-review" />
+        <module name="java-review" />
       </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="java-review" options="-parameters" />
       <module name="srping-boot-api-calculator" options="-parameters" />
     </option>
   </component>

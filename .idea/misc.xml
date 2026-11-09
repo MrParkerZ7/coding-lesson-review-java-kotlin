@@ -6,6 +6,7 @@
       <list>
         <option value="$PROJECT_DIR$/srping-boot-api-calculator/pom.xml" />
         <option value="$PROJECT_DIR$/kotlin-review/pom.xml" />
+        <option value="$PROJECT_DIR$/java-review/pom.xml" />
       </list>
     </option>
   </component>
