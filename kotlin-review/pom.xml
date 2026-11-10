@@ -127,6 +127,8 @@
                 <version>3.6.4</version>
                 <configuration>
                     <mainClass>${main.class}</mainClass>
+                    <!-- Do not wait 15 s for leftover daemon threads (coroutine and executor pools) after main returns -->
+                    <cleanupDaemonThreads>false</cleanupDaemonThreads>
                 </configuration>
             </plugin>
         </plugins>

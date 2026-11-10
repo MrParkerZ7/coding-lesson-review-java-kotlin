@@ -1,6 +1,6 @@
 # kotlin-review
 
-Runnable notes for reviewing Kotlin syntax and features, built lesson by lesson (the first lessons one at a time, the rest generated in one pass on 2026-11-09).
+Runnable notes for reviewing Kotlin syntax and features, built lesson by lesson (the first lessons one at a time, the rest generated in one pass on 2026-11-09; lesson 22, threads, added on 2026-11-10).
 Each lesson is a folder of small files, each with a `main()`: read the code, run it, compare the output with the `// comments`.
 
 ## My story (why this exists)
@@ -58,7 +58,7 @@ use plain ASCII: `mvn -q compile exec:java -Dstyle=plain` (or set the environmen
 | ⚪ **Nice** | Senior-level or niche. Skim only if the job description mentions it. |
 
 Two kinds of rounds, and they need different lessons: a **live-coding round** (solve a problem in Kotlin: lessons 0-8 and the drills)
-and a **Kotlin Q&A round** (explain features: lessons 10-20).
+and a **Kotlin Q&A round** (explain features: lessons 10-20 and 22).
 
 ## Lesson plan
 
@@ -86,10 +86,11 @@ and a **Kotlin Q&A round** (explain features: lessons 10-20).
 | 19 | Generics and variance: `in` / `out`, `where`, star projection, `reified` | ⚪ | Senior-level questions | ✅ `19-generic-type/` (`GenericBasics` · `Variance` · `ErasureAndReified`, package `review.generics`) |
 | 20 | Advanced: `inline` / `noinline` / `crossinline`, `value class`, operator overloading, DSLs, `tailrec`, contracts, `typealias` | ⚪ | Senior-level questions | ✅ `20-advanced/` (6 files, below) |
 | 21 | Printing objects as JSON: why `toString()` is not JSON, a hand-written `escapeJson` + recursive `toJson`, pretty printing, reflection, Jackson / Gson / `kotlinx.serialization` | 🟡 | "Print this result as JSON" is a common output task, and on a judge with no library you write it yourself (escaping, `null`, nesting, key order); Q&A asks how the three libraries differ | ✅ `21-json-output/` (4 files, below) |
+| 22 | Threads and shared state: `thread { }`, `join`, interrupt, virtual threads, the lost-update race, `@Synchronized` / `synchronized(lock)` / `ReentrantLock.withLock`, `AtomicInteger` / `LongAdder` / `@Volatile`, executors, `Future` / `CompletableFuture`, `ConcurrentHashMap`, blocking queues, deadlock, coroutine `Mutex` / `Semaphore` | 🟡 | "Two threads increment a counter: what goes wrong and how do you fix it?" is a staple of backend Q&A, and lesson 17 only covers coroutines. The twin of `java-review` lesson 16. **Promote to 🔴 if the job is backend (Spring)** | ✅ `22-threads-and-shared-state/` (7 files + the `Workers` helper, below) |
 
 ## Suggested order
 
-Live-coding first, then Q&A: **2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 9**, then **11 -> 13 -> 16 -> 17** if time remains.
+Live-coding first, then Q&A: **2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 9**, then **11 -> 13 -> 16 -> 17** if time remains (**-> 22** for a backend job: read `RaceAndLocks` first, `CoroutineSharedState` last).
 Lessons 1 and 8 are short and can be skimmed in between. Every lesson is now written; the order above is the order to read them in.
 Lesson 9 (drills) is the one to repeat against the clock. Lesson 21 (JSON output) stands alone: read `HandWrittenJson` first, the libraries last. Lesson 17 needs the `kotlinx-coroutines-core` dependency, already in `pom.xml`.
 
@@ -143,3 +144,4 @@ Files of lesson 18 (all in `review.delegation`): `Properties` · `LazyAndLateini
 Files of lesson 19 (all in `review.generics`): `GenericBasics` · `Variance` · `ErasureAndReified`.
 Files of lesson 20 (all in `review.advanced`): `InlineFunctions` · `ValueClass` · `OperatorOverloading` · `Tailrec` · `DslBuilders` · `Contracts`.
 Files of lesson 21 (all in `review.json`): `ToStringIsNotJson` · `HandWrittenJson` · `ReflectionJson` · `LibraryJson`.
+Files of lesson 22 (all in `review.threads`): `ThreadsBasics` · `RaceAndLocks` · `AtomicsAndVolatile` · `ExecutorsAndFutures` · `ConcurrentCollections` · `QueuesAndDeadlock` · `CoroutineSharedState`, plus `Workers` (shared helpers, no `main`).
