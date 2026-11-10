@@ -1,0 +1,27 @@
+server:
+  port: 8082
+
+spring:
+  application:
+    name: user-service-kotlin
+  jackson:
+    # null fields are left out of responses ("phone" is absent, not "phone": null)
+    default-property-inclusion: non_null
+    deserialization:
+      # an unknown field in a request body is a 400, not silently ignored (catches {"status": ...} sent to /me)
+      fail-on-unknown-properties: true
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          # the keys and the expected "iss" are discovered from the auth server on the first request, not at startup
+          issuer-uri: http://localhost:9000
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+
+app:
+  seed-demo-users: true

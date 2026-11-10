@@ -1,0 +1,25 @@
+server:
+  port: 9000
+
+spring:
+  application:
+    name: auth-server
+  security:
+    oauth2:
+      authorizationserver:
+        # the "iss" claim; both user services point their issuer-uri here
+        issuer: http://localhost:9000
+        client:
+          demo-web:
+            registration:
+              client-id: demo-web
+              client-secret: "{noop}demo-secret"
+              client-authentication-methods: client_secret_basic
+              authorization-grant-types: authorization_code, refresh_token
+              # 127.0.0.1, not localhost: Spring Authorization Server rejects "localhost" in a redirect URI (RFC 8252)
+              redirect-uris: http://127.0.0.1:9000/demo/callback
+              # users.read / users.write are what the user services check; the user's ROLE decides what they may do with them
+              scopes: openid, users.read, users.write
+            # demo: no consent screen and no PKCE, so scripts/token.sh can log in with plain curl
+            require-authorization-consent: false
+            require-proof-key: false

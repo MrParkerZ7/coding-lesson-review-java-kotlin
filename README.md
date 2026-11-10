@@ -15,6 +15,7 @@ Lessons are written on the owner's mark: one at a time by default, the full set 
 | Part | What |
 |---|---|
 | [`srping-boot-api-calculator/`](srping-boot-api-calculator/) | the Java side: a Spring Boot calculator API |
+| [`spring-user-service/`](spring-user-service/README.md) | a Spring Boot 4 user-management API written twice, in Java and in Kotlin, behind one shared OAuth2 auth server: layers, DTO mapping, error handling, null handling side by side |
 | [`kotlin-review/`](kotlin-review/README.md) | the Kotlin lessons: the lesson plan with priority marks, and how to run them |
 | [`java-review/`](java-review/README.md) | the same review in Java (JDK 21), for when the interview language is Java |
 | [`typescript-review/`](typescript-review/README.md) | the same review in TypeScript 5.9 on Node 24, for when the interview language is TypeScript or JavaScript |
